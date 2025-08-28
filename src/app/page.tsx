@@ -1,58 +1,35 @@
 "use client"
 import { useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { motion, stagger, useAnimate } from "motion/react"
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating"
 import { ArrowRight } from "lucide-react"
 
 const exampleImages = [
   {
-    url: "https://images.unsplash.com/photo-1727341554370-80e0fe9ad082?q=80&w=2276&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    author: "Branislav Rodman",
-    link: "https://unsplash.com/photos/a-black-and-white-photo-of-a-woman-brushing-her-teeth-r1SjnJL5tf0",
-    title: "A Black and White Photo of a Woman Brushing Her Teeth",
+    url: "https://images.unsplash.com/photo-1593819559713-743d364eb059?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    url: "https://images.unsplash.com/photo-1640680608781-2e4199dd1579?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    link: "https://unsplash.com/photos/a-painting-of-a-palm-leaf-on-a-multicolored-background-AaNPwrSNOFE",
-    title: "Neon Palm",
-    author: "Tim Mossholder",
+    url: "https://plus.unsplash.com/premium_photo-1673809798970-30c14cfd0ab6?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGNpYm98ZW58MHwxfDB8fHww",    
   },
   {
-    url: "https://images.unsplash.com/photo-1726083085160-feeb4e1e5b00?q=80&w=3024&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    link: "https://unsplash.com/photos/a-blurry-photo-of-a-crowd-of-people-UgbxzloNGsc",
-    author: "ANDRII SOLOK",
-    title: "A blurry photo of a crowd of people",
+    url: "https://images.unsplash.com/photo-1626844131082-256783844137?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEwfHx8ZW58MHx8fHx8",
   },
   {
-    url: "https://images.unsplash.com/photo-1562016600-ece13e8ba570?q=80&w=2838&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    link: "https://unsplash.com/photos/rippling-crystal-blue-water-9-OCsKoyQlk",
-    author: "Wesley Tingey",
-    title: "Rippling Crystal Blue Water",
+    url: "https://images.unsplash.com/photo-1664128004808-97d6212a03bb?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzl8fHJpc290dG98ZW58MHx8MHx8fDA%3D",
   },
   {
-    url: "https://images.unsplash.com/photo-1624344965199-ed40391d20f2?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    link: "https://unsplash.com/de/fotos/mann-im-schwarzen-hemd-unter-blauem-himmel-m8RDNiuEXro",
-    author: "Serhii Tyaglovsky",
-    title: "Mann im schwarzen Hemd unter blauem Himmel",
+    url: "https://images.unsplash.com/photo-1527976746453-f363eac4d889?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8Mzh8ZG92TUdTUnA4SEl8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    url: "https://images.unsplash.com/photo-1689553079282-45df1b35741b?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    link: "https://unsplash.com/photos/a-woman-with-a-flower-crown-on-her-head-0S3muIttbsY",
-    author: "Vladimir Yelizarov",
-    title: "A women with a flower crown on her head",
+    url: "https://images.unsplash.com/photo-1587000239047-4fbc2eb28ae1?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDd8fHxlbnwwfHx8fHw%3D",
   },
   {
-    url: "https://images.unsplash.com/photo-1721968317938-cf8c60fccd1a?q=80&w=2728&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "A blurry photo of white flowers in a field",
-    author: "Eugene Golovesov",
-    link: "https://unsplash.com/photos/a-blurry-photo-of-white-flowers-in-a-field-6qbx0lzGPyc",
+    url: "https://images.unsplash.com/photo-1655633593521-d529c5e7e037?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjh8fHJpc290dG98ZW58MHx8MHx8fDA%3D",
   },
   {
-    url: "https://images.unsplash.com/photo-1677338354108-223e807fb1bd?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    author: "Mathilde Langevin",
-    link: "https://unsplash.com/photos/a-table-topped-with-two-wine-glasses-and-plates-Ig0gRAHspV0",
-    title: "A table topped with two wine glasses and plates",
+    url: "https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
 ]
 
@@ -65,13 +42,20 @@ export default function Home() {
 
   return (
     <div className="w-full min-h-screen mx-auto mt-60" ref={scope}>
+      <Image
+        src="/hero.webp"
+        alt="Background Gradient"
+        fill
+        className="object-cover -z-10 blur-2xl"
+
+      />
       <motion.div
         className="z-50 text-center space-y-4 items-center flex flex-col"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.88, delay: 1.5 }}
       >
-        <div className='flex gap-2 items-center bg-white backdrop-blur-lg px-6 py-1.5 rounded-full border border-neutral-300'>
+        <div className='flex gap-2 items-center bg-white backdrop-blur-lg px-6 py-1.5 rounded-full outline-2'>
           <div className='bg-[#12C971] rounded-full w-2.5 h-2.5'></div>
           <p className='text-sm opacity-70'>Servizio Disponibile</p>
         </div>
@@ -142,7 +126,7 @@ export default function Home() {
           <motion.img
             initial={{ opacity: 0 }}
             src={exampleImages[5].url}
-            className="w-40 md:w-52 h-full object-cover hover:scale-105 duration-200 cursor-pointer transition-transform"
+            className="w-40 md:w-52 h-full object-cover hover:scale-105 duration-200 cursor-pointer transition-transform rotate-90"
           />
         </FloatingElement>
         <FloatingElement depth={1} className="top-[80%] left-[50%]">
